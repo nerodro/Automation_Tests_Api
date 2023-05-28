@@ -17,38 +17,38 @@ class Test_Get():
         assert response.json() == json_data.list_users, GlobalErrorMessages.WRONG_JSON_DATA.value
         print(response.text)
 
-    def test_get_single(self):
-        response = requests.get(GLOBAL_LINK + "/api/users/2")
+    def test_get_single(self, get_url):
+        response = requests.get(get_url(GLOBAL_LINK , "/api/users/2"))
         assert response.status_code == 200, GlobalErrorMessages.WRONG_STATUS_CODE.value
         assert response.json() == json_data.single_body, GlobalErrorMessages.WRONG_JSON_DATA.value
         print(response.text)
 
-    def test_get_none(self):
-        response = requests.get(GLOBAL_LINK + "/api/users/23")
+    def test_get_none(self, get_url):
+        response = requests.get(get_url(GLOBAL_LINK , "/api/users/23"))
         assert response.status_code == 404, GlobalErrorMessages.WRONG_STATUS_CODE.value
         assert response.json() == {}, GlobalErrorMessages.WRONG_JSON_DATA.value
         print(response.text)
 
-    def test_list_resource(self):
-        response = requests.get(GLOBAL_LINK + "/api/unknown")
+    def test_list_resource(self, get_url):
+        response = requests.get(get_url(GLOBAL_LINK , "/api/unknown"))
         assert response.status_code == 200, GlobalErrorMessages.WRONG_STATUS_CODE.value
         assert response.json() == json_data.resources, GlobalErrorMessages.WRONG_JSON_DATA.value
         print(response.text)
 
-    def test_single_resource(self):
-        response = requests.get(GLOBAL_LINK + "/api/unknown/2")
+    def test_single_resource(self, get_url):
+        response = requests.get(get_url(GLOBAL_LINK , "/api/unknown/2"))
         assert response.status_code == 200, GlobalErrorMessages.WRONG_STATUS_CODE.value
         assert response.json() == json_data.single_recource, GlobalErrorMessages.WRONG_JSON_DATA.value
         print(response.text)
 
-    def test_unknown_resource(self):
-        response = requests.get(GLOBAL_LINK + "/api/unknown/23")
+    def test_unknown_resource(self, get_url):
+        response = requests.get(get_url(GLOBAL_LINK , "/api/unknown/23"))
         assert response.status_code == 404, GlobalErrorMessages.WRONG_STATUS_CODE.value
         assert response.json() == {}, GlobalErrorMessages.WRONG_JSON_DATA.value
         print(response.text)
 
-    def test_delay(self):
-        response = requests.get(GLOBAL_LINK + "/api/users?delay=3")
+    def test_delay(self, get_url):
+        response = requests.get(get_url(GLOBAL_LINK , "/api/users?delay=3"))
         assert response.status_code == 200, GlobalErrorMessages.WRONG_STATUS_CODE.value
         assert response.json() == json_data.delay, GlobalErrorMessages.WRONG_JSON_DATA.value
         print(response.text)

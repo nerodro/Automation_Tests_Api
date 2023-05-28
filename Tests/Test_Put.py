@@ -10,9 +10,9 @@ from Api_Tests.pydantic.Patch import Patch_Update
 
 @pytest.mark.put
 class Test_Put():
-    def test_put_update(self):
+    def test_put_update(self, get_url):
         user_update = {"name": "sam","job": "worker"}
-        responses = requests.post(GLOBAL_LINK + "/api/users/2", json=user_update)
+        responses = requests.post(get_url(GLOBAL_LINK , "/api/users/2"), json=user_update)
         response = Response(responses)
         response.assert_statuse_code(201).valid(Put_Update)
         print(responses.json())

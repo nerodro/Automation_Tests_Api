@@ -10,9 +10,9 @@ from Api_Tests.pydantic.Patch import Patch_Update
 
 @pytest.mark.delete
 class Test_Delete():
-    def test_delete(self):
+    def test_delete(self, get_url):
         user_update = {"name": "olly", "job": "coder"}
-        responses = requests.delete(GLOBAL_LINK + "/api/users/2", json=user_update)
+        responses = requests.delete(get_url(GLOBAL_LINK , "/api/users/2"), json=user_update)
         assert responses.status_code == 204, GlobalErrorMessages.WRONG_STATUS_CODE.value
         assert responses, GlobalErrorMessages.WRONG_JSON_DATA.value
         print(responses.text)
