@@ -1,0 +1,24 @@
+from ..enums.global_enum_errors import GlobalErrorMessages
+from Api_Tests.pydantic.post import Post_Create
+
+
+class Response:
+    def __init__(self, response):
+        self.response = response
+        self.response_json = response.json()
+        self.response_status = response.status_code
+
+    def valid(self, schema):
+        if isinstance(self.response_json, list):
+            for item in self.response_json:
+                schema.parse_obj(item)
+        else:
+            schema.parse_obj(self.response_json)
+        return self
+
+    def assert_statuse_code(self, status_code):
+        if isinstance(status_code, list):
+            assert self.response_status in status_code, GlobalErrorMessages.WRONG_STATUS_CODE.value
+        else:
+            assert self.response_status == status_code, GlobalErrorMessages.WRONG_STATUS_CODE.value
+        return self
